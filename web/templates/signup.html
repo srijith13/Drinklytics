@@ -1,0 +1,71 @@
+{% extends "login_layout.html" %}
+{% block title %}
+Signup
+{% endblock %}
+{% block content %}
+
+{% if error != "" %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+
+<div class="page active" id="page-stats">
+    <div class="hero-card">
+        <div class="hero-title" id="title"><span>SignUp </span></div>
+        <form action="/drinklytics/v1/signup" method="POST">
+            <div class="input-wrapper">
+                <input
+                    class="input-item"
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Name"
+                    required
+                />
+            </div>
+            <div class="input-wrapper">
+                <input
+                    class="input-item"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="email"
+                    required
+                />
+            </div>
+            <div class="input-wrapper">
+                <input
+                    class="input-item"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                />
+                <i class="far fa-eye toggle-password" id="togglePassword"></i>
+            </div>
+            <div class="input-wrapper">
+                <input
+                    class="input-item"
+                    type="password"
+                    id="password2"
+                    placeholder="Confirm Password"
+                    required
+                />
+                <i class="far fa-eye toggle-password" id="togglePassword2"></i>
+            </div>
+
+            <button onclick="handleAuth()" id="actionBtn" type="submit">
+                SignUp
+            </button>
+        </form>
+
+        <div class="toggle" onclick="toggleMode()">
+            <p id="toogleSignupText">Have an account?</p>
+            <a href="/login"><span id="toggleText">Login</span></a>
+        </div>
+
+        <div id="msg" class="message"></div>
+        <!--<span>Session</span>-->
+    </div>
+</div>
+{% endblock %}

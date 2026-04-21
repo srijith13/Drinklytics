@@ -1,0 +1,320 @@
+{% extends "login_layout.html" %}
+{% block title %}
+Login {{ title }}
+{% endblock %}
+
+{% block content %}
+
+{% if success != "" %}
+<p style="color:green;">{{ success }}</p>
+{% endif %}
+
+<div class="page active" id="page-stats">
+    <div class="hero-card">
+        <div class="hero-title" id="title"><span>Login </span></div>
+        <!--<form action="/login" method="POST">
+            <input
+                class="input-item"
+                type="email"
+                id="username"
+                placeholder="Username"
+                required
+            />
+            <input
+                class="input-item"
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+            />
+            <i class="input-item" class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+
+            <button onclick="handleAuth()" id="actionBtn" type="submit">
+                Login
+            </button>
+        </form>-->
+
+        <form action="/login" method="POST" class="form">
+            <div class="input-wrapper">
+                <input
+                    class="input-item"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="email"
+                    required
+                />
+            </div>
+
+            <div class="input-wrapper">
+                <input
+                    class="input-item"
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                />
+                <i class="far fa-eye toggle-password" id="togglePassword"></i>
+            </div>
+
+            <button id="actionBtn" type="submit">Login</button>
+        </form>
+
+        <div class="toggle">
+            <!--onclick="toggleMode()"-->
+            <p id="toogleSignupText">Don't have an account?</p>
+            <a href="/signup"><span id="toggleText">Sign up</span></a>
+        </div>
+
+        <div id="msg" class="message"></div>
+        <!--<span>Session</span>-->
+    </div>
+</div>
+{% endblock %}
+
+<!--
+<form method="POST" action="/login">
+    <input name="username" />
+    <input name="password" type="password" />
+    <button>Login</button>
+</form>
+-->
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--<title>Auth Page</title>-->
+        <title>{% block title %}{% endblock %}</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans&family=Space+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <!--<script src="static/js/script.js" defer></script>-->
+        <link rel="stylesheet" href="static/css/style.css" />
+        <style>
+            /*.input-item {
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 14px;
+                padding: 14px 16px;
+                transition:
+                    transform 0.15s,
+                    border-color 0.15s;
+            }*/
+
+            .input-wrapper {
+                position: relative;
+                margin-bottom: 15px;
+            }
+
+            .input-item {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 14px;
+                padding: 14px 16px;
+                color: white;
+                transition: transform 0.15s, border-color 0.15s;
+            }
+
+            .input-item:focus {
+                outline: none;
+                border-color: var(--amber);
+                transform: scale(1.02);
+            }
+
+            .toggle-password {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: var(--text-muted);
+            }
+
+            .container {
+                background: var(--card);
+                padding: 30px;
+                border-radius: 12px;
+                border: 1px solid var(--border);
+                width: 320px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            }
+
+            h2 {
+                font-family: var(--font-head);
+                letter-spacing: 1px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 6px;
+                border: 1px solid var(--border);
+                background: var(--bg3);
+                color: var(--text);
+            }
+
+            input:focus {
+                outline: none;
+                border-color: var(--amber);
+            }
+
+            button {
+                width: 100%;
+                padding: 10px;
+                margin-top: 10px;
+                border: none;
+                border-radius: 6px;
+                background: var(--amber);
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            button:hover {
+                background: var(--amber-dim);
+            }
+
+            .toggle {
+                text-align: center;
+                margin-top: 15px;
+                color: var(--text-muted);
+                cursor: pointer;
+            }
+
+            .toggle span {
+                color: var(--blue);
+            }
+
+            .message {
+                text-align: center;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+
+            .success {
+                color: var(--green);
+            }
+            .error {
+                color: var(--red);
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🍻</span>
+                <div>
+                    <div class="logo-text">DRINKLYTICS</div>
+                    <div class="logo-sub">Track. Sip. Repeat.</div>
+                </div>
+            </div>
+        </header>
+        {% block content %}
+        {% endblock %}
+
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-label" style="display: flex;text-align: center;">We don’t encourage alcohol consumption.
+                    This app is simply here to help you track your experience and enjoy the vibe responsibly.</div>
+            </div>
+        <script>
+            let isLogin = true;
+
+            // function toggleMode() {
+            //     isLogin = !isLogin;
+            //     document.getElementById("title").innerText = isLogin
+            //         ? "Login"
+            //         : "Create Account";
+            //     document.getElementById("actionBtn").innerText = isLogin
+            //         ? "Login"
+            //         : "Sign Up";
+            //     document.getElementById("toogleSignupText").innerText = isLogin
+            //         ? "Don't have an account? "
+            //         : "Have an account? ";
+            //     document.getElementById("toggleText").innerText = isLogin
+            //         ? "Sign up"
+            //         : "Login";
+            //     document.getElementById("msg").innerText = "";
+
+            // }
+            function myFunction() {
+              var x = document.getElementById("myInput");
+              if (x.type === "password") {
+                x.type = "text";
+              } else {
+                x.type = "password";
+              }
+            }
+
+            const toggle = document.getElementById("togglePassword");
+            const password = document.getElementById("password");
+
+            toggle.addEventListener("click", () => {
+                if (password.type === "password") {
+                    password.type = "text";
+                    toggle.classList.remove("fa-eye");
+                    toggle.classList.add("fa-eye-slash");
+                } else {
+                    password.type = "password";
+                    toggle.classList.remove("fa-eye-slash");
+                    toggle.classList.add("fa-eye");
+                }
+            });
+            const toggle2 = document.getElementById("togglePassword2");
+            const password2 = document.getElementById("password2");
+
+            toggle2.addEventListener("click", () => {
+                if (password2.type === "password") {
+                    password2.type = "text";
+                    toggle2.classList.remove("fa-eye");
+                    toggle2.classList.add("fa-eye-slash");
+                } else {
+                    password2.type = "password";
+                    toggle2.classList.remove("fa-eye-slash");
+                    toggle2.classList.add("fa-eye");
+                }
+            });
+
+            function handleAuth() {
+                const user = document.getElementById("username").value;
+                const pass = document.getElementById("password").value;
+                const msg = document.getElementById("msg");
+
+                if (!user || !pass) {
+                    msg.innerText = "Please fill all fields";
+                    msg.className = "message error";
+                    return;
+                }
+
+                if (isLogin) {
+                    msg.innerText = "Logged in successfully (demo)";
+                    msg.className = "message success";
+                } else {
+                    msg.innerText = "Account created (demo)";
+                    msg.className = "message success";
+                }
+            }
+
+        </script>
+
+    </body>
+</html>

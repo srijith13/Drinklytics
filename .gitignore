@@ -1,0 +1,9 @@
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.env
+*.DS_Store
+go.mod
+go.sum

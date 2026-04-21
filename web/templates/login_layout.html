@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}{% endblock %}</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans&family=Space+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <link rel="stylesheet" href="static/css/style.css" />
+        <style>
+            .input-wrapper {
+                position: relative;
+                margin-bottom: 15px;
+            }
+
+            .input-item {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 14px;
+                padding: 14px 16px;
+                color: white;
+                transition: transform 0.15s, border-color 0.15s;
+            }
+
+            .input-item:focus {
+                outline: none;
+                border-color: var(--amber);
+                transform: scale(1.02);
+            }
+
+            .toggle-password {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: var(--text-muted);
+            }
+
+            .container {
+                background: var(--card);
+                padding: 30px;
+                border-radius: 12px;
+                border: 1px solid var(--border);
+                width: 320px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            }
+
+            h2 {
+                font-family: var(--font-head);
+                letter-spacing: 1px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 6px;
+                border: 1px solid var(--border);
+                background: var(--bg3);
+                color: var(--text);
+            }
+
+            input:focus {
+                outline: none;
+                border-color: var(--amber);
+            }
+
+            button {
+                width: 100%;
+                padding: 10px;
+                margin-top: 10px;
+                border: none;
+                border-radius: 6px;
+                background: var(--amber);
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            button:hover {
+                background: var(--amber-dim);
+            }
+
+            .toggle {
+                text-align: center;
+                margin-top: 15px;
+                color: var(--text-muted);
+                cursor: pointer;
+            }
+
+            .toggle span {
+                color: var(--blue);
+            }
+
+            .message {
+                text-align: center;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+
+            .success {
+                color: var(--green);
+            }
+            .error {
+                color: var(--red);
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🍻</span>
+                <div>
+                    <div class="logo-text">DRINKLYTICS</div>
+                    <div class="logo-sub">Track. Sip. Repeat.</div>
+                </div>
+            </div>
+        </header>
+        {% block content %}
+        {% endblock %}
+
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-label" style="display: flex;text-align: center;">We don’t encourage alcohol consumption.
+                    This app is simply here to help you track your experience and enjoy the vibe responsibly.</div>
+            </div>
+        <script>
+            let errorMsg = "{{ error|escapejs }}";
+            console.log("errorMsg ",errorMsg)
+
+            // const params = new URLSearchParams(window.location.search);
+
+            // const success = params.get("success");
+            // const error = params.get("error");
+            // if (success) {
+            //   msg.innerText = "Logged in successfully (demo)";
+            //   msg.className = "message success";
+            // }
+            if (errorMsg) {
+              msg.innerText = errorMsg;
+              msg.className = "message error";
+            }
+        </script>
+
+    </body>
+</html>

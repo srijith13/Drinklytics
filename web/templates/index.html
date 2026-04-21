@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Drinklytics – Your Session Stats</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <script src="static/js/script.js" defer></script>
+        <link rel="stylesheet" href="static/css/style.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🍻</span>
+                <div>
+                    <div class="logo-text">DRINKLYTICS</div>
+                    <div class="logo-sub">Track. Sip. Repeat.</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="logo-sub">{{ user }} </div>
+                <div class="session-badge" id="sessionBadge">
+                    <span class="pulse"></span> LIVE
+                </div>
+                <!--<div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="side-menu" id="sideMenu">
+                    <div class="menu-header">MENU</div>
+                    <div class="menu-item">🏠 Home</div>
+                    <div class="menu-item">📊 Stats</div>
+                    <div class="menu-item">🍺 Log Drink</div>
+                    <div class="menu-item">📋 History</div>
+                    <div class="menu-item">🍽️ Food</div>
+                    <div class="menu-divider"></div>
+                    <div class="menu-item">⚙️ Settings</div>
+                </div>
+
+                <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>-->
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('stats')">Stats</div>
+            <div class="tab" onclick="switchTab('log')">Log Drink</div>
+            <div class="tab" onclick="switchTab('history')">History</div>
+            <div class="tab" onclick="switchTab('food')">Food & Sides</div>
+        </div>
+
+        <!-- ── STATS PAGE ── -->
+        <div class="page active" id="page-stats">
+            <div class="hero-card">
+                <div class="hero-name">Session Stats</div>
+                <div class="hero-title">Tonight's <span>Session</span></div>
+
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">🍺</div>
+                        <div class="stat-label">Total Drinks</div>
+                        <div class="stat-value amber" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-label">Buzz Points</div>
+                        <div class="stat-value" id="stat-points">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-label">Time Drinking</div>
+                        <div class="stat-value green" id="stat-time">
+                            0<span class="stat-unit">m</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-label">Avg Pace</div>
+                        <div class="stat-value" id="stat-pace">
+                            –<span class="stat-unit">min/drink</span>
+                        </div>
+                    </div>
+                    <div class="stat-item span2">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-label">Fastest Sip PR</div>
+                        <div class="stat-value" id="stat-pr">
+                            –<span class="stat-unit">min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticker Share Card -->
+            <div class="sticker-wrap">
+                <div class="sticker-card">
+                    <div class="sticker-tag">✦ SESSION STATS</div>
+                    <div class="sticker-row">
+                        <div class="sticker-row-icon">🍺</div>
+                        <div class="sticker-row-content">
+                            <div class="sticker-row-label">Total Drinks</div>
+                            <div class="sticker-row-val" id="share-total">
+                                0
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sticker-row">
+                        <div class="sticker-row-icon">⏱️</div>
+                        <div class="sticker-row-content">
+                            <div class="sticker-row-label">Time Drinking</div>
+                            <div class="sticker-row-val" id="share-time">
+                                0<span class="unit"> min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sticker-row">
+                        <div class="sticker-row-icon">⚡</div>
+                        <div class="sticker-row-content">
+                            <div class="sticker-row-label">Avg Drink Pace</div>
+                            <div class="sticker-row-val" id="share-pace">
+                                –<span class="unit"> min/drink</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sticker-logo">DRINKLYTICS</div>
+                </div>
+            </div>
+
+            <!-- Breakdown -->
+            <div class="breakdown-card">
+                <div class="breakdown-title">Drinks Breakdown</div>
+                <div id="breakdown-bars">
+                    <div class="empty-state" style="padding: 20px 0">
+                        <div class="empty-icon" style="font-size: 32px">📊</div>
+                        <div class="empty-sub">Log drinks to see breakdown</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="breakdown-card">
+                <div class="breakdown-title">Session Timeline</div>
+                <div class="timeline" id="timeline">
+                    <div class="empty-state" style="padding: 20px 0">
+                        <div class="empty-icon" style="font-size: 32px">🕐</div>
+                        <div class="empty-sub">
+                            Your timeline will appear here
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── LOG DRINK PAGE ── -->
+        <div class="page" id="page-log">
+            <div class="log-section">
+                <div class="section-heading">Type</div>
+                <div class="type-toggle">
+                    <button
+                        class="type-btn active"
+                        id="typeAlc"
+                        onclick="setType('alcoholic')"
+                    >
+                        🍺 Alcoholic
+                    </button>
+                    <button
+                        class="type-btn"
+                        id="typeNon"
+                        onclick="setType('non-alcoholic')"
+                    >
+                        🥤 Non-Alcoholic
+                    </button>
+                </div>
+            </div>
+
+            <div class="log-section">
+                <div class="section-heading">Pick Your Drink</div>
+                <div class="drink-quick" id="drinkChips"></div>
+            </div>
+
+            <div class="log-section">
+                <div class="section-heading">Details</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Drink Name</label>
+                        <input
+                            type="text"
+                            id="drinkName"
+                            placeholder="e.g. Old Monk"
+                        />
+                    </div>
+                    <div class="form-group" style="max-width: 120px">
+                        <label>Qty</label>
+                        <input
+                            type="number"
+                            id="drinkQty"
+                            value="1"
+                            min="1"
+                            max="20"
+                        />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Volume / Measure</label>
+                        <select id="drinkMeasure">
+                            <option value="Peg">Peg (30ml)</option>
+                            <option value="Large Peg">Large Peg (60ml)</option>
+                            <option value="Bottle">Bottle (330ml)</option>
+                            <option value="Pint">Pint (500ml)</option>
+                            <option value="Shot">Shot (30ml)</option>
+                            <option value="Glass">Glass</option>
+                            <option value="Can">Can</option>
+                            <option value="Cup">Cup</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="logDrink()">
+                    LOG DRINK +
+                </button>
+            </div>
+        </div>
+
+        <!-- ── HISTORY PAGE ── -->
+        <div class="page" id="page-history">
+            <div class="section-heading">Drink Log</div>
+            <div class="log-list" id="historyList">
+                <div class="empty-state">
+                    <div class="empty-icon">🍹</div>
+                    <div class="empty-text">Nothing yet</div>
+                    <div class="empty-sub">
+                        Log your first drink to get started
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── FOOD PAGE ── -->
+        <div class="page" id="page-food">
+            <div class="log-section">
+                <div class="section-heading">Quick Add</div>
+                <div class="food-chips" id="foodChips"></div>
+            </div>
+
+            <div class="log-section">
+                <div class="section-heading">Custom</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Food / Side Name</label>
+                        <input
+                            type="text"
+                            id="foodName"
+                            placeholder="e.g. Chicken Tikka"
+                        />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="logFood()">
+                    LOG FOOD +
+                </button>
+            </div>
+
+            <div class="section-heading" style="margin-top: 4px">
+                Today's Chakhna
+            </div>
+            <div class="log-list" id="foodList">
+                <div class="empty-state">
+                    <div class="empty-icon">🍟</div>
+                    <div class="empty-text">No food logged</div>
+                    <div class="empty-sub">Add your snacks and sides</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class="bottom-nav">
+            <div
+                class="nav-item active"
+                id="nav-stats"
+                onclick="switchTab('stats')"
+            >
+                <div class="nav-icon">📊</div>
+                <div class="nav-label">STATS</div>
+            </div>
+            <div class="nav-item" id="nav-log" onclick="switchTab('log')">
+                <div class="nav-icon">➕</div>
+                <div class="nav-label">LOG</div>
+            </div>
+            <div
+                class="nav-item"
+                id="nav-history"
+                onclick="switchTab('history')"
+            >
+                <div class="nav-icon">📋</div>
+                <div class="nav-label">HISTORY</div>
+            </div>
+            <div class="nav-item" id="nav-food" onclick="switchTab('food')">
+                <div class="nav-icon">🍽️</div>
+                <div class="nav-label">FOOD</div>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast"></div>
+        <script></script>
+    </body>
+</html>
